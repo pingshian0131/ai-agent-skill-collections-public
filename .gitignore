@@ -1,0 +1,25 @@
+# Environment files
+.env
+.env.*
+*.env
+
+# Secrets and credentials
+*secret*
+*credential*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Local configuration
+config.local.*
+openclaw.json
+
+# IDE and OS
+.DS_Store
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+.tmp/
