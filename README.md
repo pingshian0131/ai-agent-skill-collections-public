@@ -12,6 +12,8 @@
 | [skill-creator](./skill-creator/) | 建立或更新 AgentSkill，提供 skill 設計、結構化、打包的完整流程指南與腳本。 |
 | [agent-creator](./agent-creator/) | 建立新的 OpenClaw Telegram bot agent，包含 workspace 設定、config 更新與 Telegram 綁定。 |
 | [openclaw-cron](./openclaw-cron/) | 管理 OpenClaw cron 排程任務 — 建立、編輯、除錯與疑難排解，含完整 CLI 指令速查與 JSON schema。 |
+| [backup](./backup/) | 將 `~/.openclaw` 建立帶時戳的 tar.gz 備份，支援列出、清理舊備份，及透過 rclone 上傳至 Google Drive。 |
+| [reset-sessions](./reset-sessions/) | 重置 OpenClaw agent 對話 session，可一次清除所有 agent 或指定單一 agent，適合清空上下文重新開始。 |
 
 ## 使用方式
 
