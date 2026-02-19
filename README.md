@@ -25,6 +25,7 @@
 | Skill | 說明 |
 |-------|------|
 | [email](./communication/email/) | 透過 Gmail App Password 以 SMTP 發送 Email，支援 HTML、附件、CC/BCC 及自訂 SMTP 伺服器。 |
+| [twilio-voice](./communication/twilio-voice/) | 透過 Twilio Voice API 撥打電話，支援 zh-TW 語音合成（Google TTS MP3），可用於語音通知與提醒。 |
 
 ### Knowledge — 知識整理
 

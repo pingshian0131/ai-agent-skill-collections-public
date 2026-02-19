@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "name": "twilio-voice",
+  "description": "Make outbound phone calls with Twilio Voice",
+  "author": "OpenClaw",
+  "license": "MIT",
+  "keywords": [
+    "twilio",
+    "voice",
+    "call",
+    "phone",
+    "chinese",
+    "twiml",
+    "1password",
+    "zh-TW"
+  ]
+}
