@@ -10,6 +10,7 @@
 |-------|------|
 | [claude-code](./dev-tools/claude-code/) | 透過本機 `claude` CLI 執行程式碼任務，支援重構、除錯、測試與整個 repo 的批次編輯。 |
 | [skill-creator](./dev-tools/skill-creator/) | 建立或更新 AgentSkill，提供 skill 設計、結構化、打包的完整流程指南與腳本。 |
+| [publish-skill](./dev-tools/publish-skill/) | 將 skill 發佈到 GitHub skill collection repos（private + public），含機敏資料掃描、路徑正規化與清除。 |
 
 ### OpenClaw — 平台管理
 
