@@ -135,7 +135,7 @@ def make_call(
     auth_token: str,
     from_number: str,
     message: str,
-    to_number: str = RECIPIENT_NUMBER,
+    to_number: Optional[str] = None,
     dry_run: bool = False,
     backup_say: bool = False,
 ) -> Dict[str, Any]:
@@ -146,12 +146,13 @@ def make_call(
         auth_token: Twilio Auth Token
         from_number: Caller ID (sending number)
         message: Voice message to speak
-        to_number: Recipient phone number (default: RECIPIENT_NUMBER constant)
+        to_number: Recipient phone number. If omitted, defaults to RECIPIENT_NUMBER constant
         dry_run: If True, return TwiML without making actual call
 
     Returns:
         Dict with call details or error information
     """
+    resolved_to = to_number or RECIPIENT_NUMBER
     twiml = build_twiml(message, backup_say=backup_say)
 
     # Dry run: just return TwiML
@@ -162,7 +163,7 @@ def make_call(
             "mode": "preview",
             "twiml": twiml,
             "from": from_number,
-            "to": to_number,
+            "to": resolved_to,
             "message": message,
             "twiml_language": TWIML_LANGUAGE,
         }
@@ -172,7 +173,7 @@ def make_call(
         client = Client(account_sid, auth_token)
         call = client.calls.create(
             twiml=twiml,
-            to=to_number,
+            to=resolved_to,
             from_=from_number,
         )
 
@@ -181,7 +182,7 @@ def make_call(
             "call_sid": call.sid,
             "status": call.status,
             "from": call.from_formatted or from_number,
-            "to": call.to_formatted or to_number,
+            "to": call.to_formatted or resolved_to,
             "message": message,
             "twiml_language": TWIML_LANGUAGE,
             "created_at": str(call.date_created) if call.date_created else None,
@@ -250,6 +251,10 @@ def parse_args() -> argparse.Namespace:
         help="Caller ID number (overrides 1Password and env var, default: from 1Password or TWILIO_FROM_NUMBER)",
     )
 
+    parser.add_argument(
+        "--to-number",
+        help=f"Recipient phone number (default: {RECIPIENT_NUMBER})",
+    )
 
     parser.add_argument(
         "--dry-run",
@@ -301,6 +306,7 @@ def main() -> int:
         auth_token=auth_token,
         from_number=from_number,
         message=args.message,
+        to_number=args.to_number,
         dry_run=args.dry_run,
         backup_say=args.backup_say,
     )

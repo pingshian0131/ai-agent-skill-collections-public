@@ -26,7 +26,7 @@ Add `--dry-run --json` to preview TwiML without placing the call.
 
 ## Constraints
 
-- **Recipient hardcoded:** `+886XXXXXXXXX` — edit `RECIPIENT_NUMBER` in call.py to set your number
+- **Default recipient:** `+886XXXXXXXXX` — used when `--to-number` is not provided; edit `RECIPIENT_NUMBER` in call.py to set your number
 - **Message limit:** 2000 characters
 - **TTS strategy:** Google TTS MP3 via `<Play>` (more reliable than live `<Say>` on zh-TW routes)
 
@@ -36,6 +36,7 @@ Add `--dry-run --json` to preview TwiML without placing the call.
 |------|----------|-------------|
 | `--message` | Yes | Text to speak |
 | `--from-number` | No | Caller number (default: `TWILIO_FROM_NUMBER` env) |
+| `--to-number` | No | Recipient number (default: `RECIPIENT_NUMBER` constant) |
 | `--backup-say` | No | Append `<Say>` after `<Play>` for extra reliability |
 | `--dry-run` | No | Preview TwiML only, no call placed |
 | `--json` | No | Machine-readable JSON output |
