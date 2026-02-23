@@ -20,6 +20,7 @@
 | [openclaw-cron](./openclaw/openclaw-cron/) | 管理 OpenClaw cron 排程任務 — 建立、編輯、除錯與疑難排解，含完整 CLI 指令速查與 JSON schema。 |
 | [reset-sessions](./openclaw/reset-sessions/) | 重置 OpenClaw agent 對話 session，可一次清除所有 agent 或指定單一 agent，適合清空上下文重新開始。 |
 | [backup](./openclaw/backup/) | 將 `~/.openclaw` 建立帶時戳的 tar.gz 備份，支援列出、清理舊備份，及透過 rclone 上傳至 Google Drive。 |
+| [memory-cleanup](./openclaw/memory-cleanup/) | 掃描並清理各 workspace agent 的空白/極簡 session memory 檔案，支援 scan、clean、report 子指令與 cron 排程。 |
 
 ### Communication — 通訊
 
