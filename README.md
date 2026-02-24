@@ -24,6 +24,7 @@
 | [memory-cleanup](./openclaw/memory-cleanup/) | 掃描並清理各 workspace agent 的空白/極簡 session memory 檔案，支援 scan、clean、report 子指令與 cron 排程。 |
 | [one-time-reminder-cron](./openclaw/one-time-reminder-cron/) | 透過編輯 cron registry 建立一次性提醒，支援建立/更新、停用與重新命名 cron job。 |
 | [cron-job-creator](./openclaw/cron-job-creator/) | 直接編輯 cron registry 管理排程任務 — 建立、更新、刪除、啟用/停用、重新命名與複製 cron job。 |
+| [docker-cleanup](./openclaw/docker-cleanup/) | 清理 `openclaw:local` rebuild 後產生的 dangling Docker images，保留最新 7 個，含 cron 排程自動執行。 |
 
 ### Communication — 通訊
 
