@@ -71,7 +71,7 @@ Remove `"model"` key entirely to use agent default.
 {
   "mode": "announce",
   "channel": "telegram",
-  "to": "YOUR_TELEGRAM_ID",
+  "to": "YOUR_CHAT_ID",
   "bestEffort": true
 }
 ```
@@ -119,7 +119,7 @@ Remove `"model"` key entirely to use agent default.
   "delivery": {
     "mode": "announce",
     "channel": "telegram",
-    "to": "YOUR_TELEGRAM_ID",
+    "to": "YOUR_CHAT_ID",
     "bestEffort": true
   }
 }

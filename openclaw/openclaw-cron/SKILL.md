@@ -7,27 +7,40 @@ description: Manage OpenClaw cron jobs — create, edit, debug, and troubleshoot
 
 Gateway-internal scheduler that persists jobs, wakes agents on schedule, and optionally delivers output to chat.
 
+## CLI Wrapper Commands
+
+Each OpenClaw instance has a dedicated host-level wrapper:
+
+| Instance | Command | Data directory |
+|----------|---------|----------------|
+| personal | `openclaw-personal` | `~/.openclaw-personal` |
+| work | `openclaw-work` | `~/.openclaw-work` |
+
+**Always use the instance-specific command** (`openclaw-personal` or `openclaw-work`), never bare `openclaw`.
+
 ## CLI Quick Reference
+
+> Examples below use `openclaw-personal`. Replace with `openclaw-work` for the work instance.
 
 | Command | Usage | Purpose |
 |---------|-------|---------|
-| `list` | `openclaw cron list` | Show all jobs |
-| `status` | `openclaw cron status` | Scheduler status |
-| `add` | `openclaw cron add --name "..." ...` | Create a job |
-| `edit` | `openclaw cron edit <jobId> ...` | Patch job fields |
-| `run` | `openclaw cron run <jobId>` | Force-run now |
-| `run --due` | `openclaw cron run <jobId> --due` | Run only if schedule is due |
-| `runs` | `openclaw cron runs --id <jobId> --limit N` | View run history |
-| `enable` | `openclaw cron enable <jobId>` | Enable a job |
-| `disable` | `openclaw cron disable <jobId>` | Disable a job |
-| `rm` | `openclaw cron rm <jobId>` | Delete a job |
+| `list` | `openclaw-personal cron list` | Show all jobs |
+| `status` | `openclaw-personal cron status` | Scheduler status |
+| `add` | `openclaw-personal cron add --name "..." ...` | Create a job |
+| `edit` | `openclaw-personal cron edit <jobId> ...` | Patch job fields |
+| `run` | `openclaw-personal cron run <jobId>` | Force-run now |
+| `run --due` | `openclaw-personal cron run <jobId> --due` | Run only if schedule is due |
+| `runs` | `openclaw-personal cron runs --id <jobId> --limit N` | View run history |
+| `enable` | `openclaw-personal cron enable <jobId>` | Enable a job |
+| `disable` | `openclaw-personal cron disable <jobId>` | Disable a job |
+| `rm` | `openclaw-personal cron rm <jobId>` | Delete a job |
 
 ## Creating Jobs
 
 ### One-shot (main session)
 
 ```bash
-openclaw cron add --name "Reminder" \
+openclaw-personal cron add --name "Reminder" \
   --at "2026-02-01T16:00:00Z" \
   --session main --system-event "Check battery" \
   --wake now --delete-after-run
@@ -36,10 +49,10 @@ openclaw cron add --name "Reminder" \
 ### Recurring isolated with delivery
 
 ```bash
-openclaw cron add --name "Morning brief" \
+openclaw-personal cron add --name "Morning brief" \
   --cron "0 7 * * *" --tz "Asia/Taipei" \
   --session isolated --message "Summarize updates." \
-  --announce --channel telegram --to "YOUR_TELEGRAM_ID"
+  --announce --channel telegram --to "YOUR_CHAT_ID"
 ```
 
 ### Key `add` / `edit` flags
@@ -71,16 +84,16 @@ Two approaches:
 ### 1. CLI edit (preferred for single fields)
 
 ```bash
-openclaw cron edit <jobId> --message "New prompt" --model "opus"
+openclaw-personal cron edit <jobId> --message "New prompt" --model "opus"
 ```
 
 ### 2. Direct file edit (for fields not exposed by CLI)
 
-Edit `~/.openclaw/cron/jobs.json` directly, then restart gateway:
+Edit `~/.openclaw-personal/cron/jobs.json` directly, then restart gateway:
 
 ```bash
 # After editing jobs.json:
-openclaw gateway restart && sleep 5 && openclaw health
+openclaw-personal gateway restart && sleep 5 && openclaw-personal health
 ```
 
 **Job JSON structure** — see `references/job-schema.md` for full schema and examples.
@@ -89,7 +102,7 @@ openclaw gateway restart && sleep 5 && openclaw health
 
 1. **Check run history:**
    ```bash
-   openclaw cron runs --id <jobId> --limit 5
+   openclaw-personal cron runs --id <jobId> --limit 5
    ```
    Returns JSON with `status`, `error`, `durationMs`.
 
@@ -99,7 +112,7 @@ openclaw gateway restart && sleep 5 && openclaw health
    ```
 
 3. **Check session JSONL** (isolated runs):
-   Sessions are stored at `~/.openclaw/agents/<agentId>/sessions/`.
+   Sessions are stored at `~/.openclaw-personal/agents/<agentId>/sessions/`.
    Isolated cron runs use session key `cron:<jobId>`.
 
 4. **Common errors:**
@@ -109,9 +122,11 @@ openclaw gateway restart && sleep 5 && openclaw health
 
 ## Storage Paths
 
-| File | Path |
+Paths use the instance data directory (`~/.openclaw-personal` or `~/.openclaw-work`).
+
+| File | Path (personal example) |
 |------|------|
-| Job definitions | `~/.openclaw/cron/jobs.json` |
-| Run history | `~/.openclaw/cron/runs/<jobId>.jsonl` |
+| Job definitions | `~/.openclaw-personal/cron/jobs.json` |
+| Run history | `~/.openclaw-personal/cron/runs/<jobId>.jsonl` |
 | Gateway logs | `/tmp/openclaw/openclaw-YYYY-MM-DD.log` |
-| Session logs | `~/.openclaw/agents/<agentId>/sessions/` |
+| Session logs | `~/.openclaw-personal/agents/<agentId>/sessions/` |
