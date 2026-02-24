@@ -21,6 +21,7 @@
 | [reset-sessions](./openclaw/reset-sessions/) | 重置 OpenClaw agent 對話 session，可一次清除所有 agent 或指定單一 agent，適合清空上下文重新開始。 |
 | [backup](./openclaw/backup/) | 將 `~/.openclaw` 建立帶時戳的 tar.gz 備份，支援列出、清理舊備份，及透過 rclone 上傳至 Google Drive。 |
 | [memory-cleanup](./openclaw/memory-cleanup/) | 掃描並清理各 workspace agent 的空白/極簡 session memory 檔案，支援 scan、clean、report 子指令與 cron 排程。 |
+| [one-time-reminder-cron](./openclaw/one-time-reminder-cron/) | 透過編輯 cron registry 建立一次性提醒，支援建立/更新、停用與重新命名 cron job。 |
 
 ### Communication — 通訊
 
