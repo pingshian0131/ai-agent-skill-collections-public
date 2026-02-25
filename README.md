@@ -41,14 +41,14 @@
 | Skill | 說明 | 來源 |
 |-------|------|------|
 | [tarot-content](./mind/tarot-content/) | 產生塔羅牌 × 星座社群媒體內容 — 每週 12 星座運勢腳本、塔羅牌陣、影片腳本與封面圖。 | [ClawHub: alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+| [mingli](./mind/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 | [ClawHub: hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
+| [meihua-yishu](./mind/meihua-yishu/) | 梅花易數（Plum Blossom I Ching）專業占卜系統 — 時間起卦、數字起卦、測字，含爻辭解讀與策略建議。 | [GitHub: muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
 
 ### Knowledge — 知識整理
 
 | Skill | 說明 |
 |-------|------|
 | [ddd-summary](./knowledge/ddd-summary/) | 為《Learning Domain-Driven Design》指定章節製作繁中摘要，分成 5 份 .md 檔並推送到 Obsidian vault。 |
-| [mingli](./knowledge/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 |
-| [meihua-yishu](./knowledge/meihua-yishu/) | 梅花易數（Plum Blossom I Ching）專業占卜系統 — 時間起卦、數字起卦、測字，含爻辭解讀與策略建議。 |
 
 ## 使用方式
 
