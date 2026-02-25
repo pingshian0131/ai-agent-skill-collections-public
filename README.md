@@ -47,6 +47,7 @@
 | Skill | 說明 |
 |-------|------|
 | [ddd-summary](./knowledge/ddd-summary/) | 為《Learning Domain-Driven Design》指定章節製作繁中摘要，分成 5 份 .md 檔並推送到 Obsidian vault。 |
+| [mingli](./knowledge/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 |
 
 ## 使用方式
 
@@ -66,6 +67,7 @@
 | Skill | 原始作者 | 來源連結 |
 |-------|---------|---------|
 | tarot-content | alexyuui | [clawhub.ai/alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+| mingli | hiehoo | [github.com/openclaw/skills/tree/main/skills/hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
 
 ## License
 
