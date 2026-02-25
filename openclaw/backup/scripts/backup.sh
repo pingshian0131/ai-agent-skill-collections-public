@@ -1,57 +1,78 @@
 #!/usr/bin/env bash
-# OpenClaw backup script — creates timestamped tar.gz of {baseDir}
+# OpenClaw backup script — creates timestamped tar.gz of openclaw environments
 set -euo pipefail
 
-# TODO: Replace {baseDir} with your actual OpenClaw directory (e.g. ~/.openclaw-personal)
-OPENCLAW_DIR="{baseDir}"
-OPENCLAW_DIRNAME="$(basename "${OPENCLAW_DIR}")"
 BACKUP_DIR="${1:-${HOME}}"
+ACTION="${2:-backup}"
+ENV_FILTER="${3:-all}"  # personal, work, or all
+
 TIMESTAMP="$(date +%Y-%m-%d-%H%M)"
-BACKUP_FILE="${BACKUP_DIR}/${OPENCLAW_DIRNAME}-backup-${TIMESTAMP}.tar.gz"
 
-if [ ! -d "${OPENCLAW_DIR}" ]; then
-  echo "ERROR: ${OPENCLAW_DIR} does not exist" >&2
-  exit 1
-fi
+# Build list of environments to process
+declare -a ENVS=()
+case "${ENV_FILTER}" in
+  personal) ENVS=("personal") ;;
+  work)     ENVS=("work") ;;
+  all)      ENVS=("personal" "work") ;;
+  *)
+    echo "ERROR: Unknown environment '${ENV_FILTER}'. Use: personal, work, or all" >&2
+    exit 1
+    ;;
+esac
 
-case "${2:-backup}" in
+case "${ACTION}" in
   backup)
-    tar -czf "${BACKUP_FILE}" -C "${HOME}" "${OPENCLAW_DIRNAME}"
-    SIZE=$(du -h "${BACKUP_FILE}" | cut -f1)
-    echo "Backup created: ${BACKUP_FILE} (${SIZE})"
+    for env in "${ENVS[@]}"; do
+      SRC_DIR="${HOME}/.openclaw-${env}"
+      BACKUP_FILE="${BACKUP_DIR}/openclaw-${env}-backup-${TIMESTAMP}.tar.gz"
+      if [ ! -d "${SRC_DIR}" ]; then
+        echo "SKIP: ${SRC_DIR} does not exist"
+        continue
+      fi
+      tar -czf "${BACKUP_FILE}" -C "${HOME}" ".openclaw-${env}"
+      SIZE=$(du -h "${BACKUP_FILE}" | cut -f1)
+      echo "Backup created: ${BACKUP_FILE} (${SIZE})"
+    done
     ;;
   list)
-    echo "Existing backups in ${BACKUP_DIR}:"
-    ls -lh "${BACKUP_DIR}"/${OPENCLAW_DIRNAME}-backup-*.tar.gz 2>/dev/null || echo "  (none)"
+    for env in "${ENVS[@]}"; do
+      echo "=== ${env} backups in ${BACKUP_DIR} ==="
+      ls -lh "${BACKUP_DIR}"/openclaw-${env}-backup-*.tar.gz 2>/dev/null || echo "  (none)"
+    done
     ;;
   clean)
-    KEEP="${3:-5}"
-    TOTAL=$(ls -1 "${BACKUP_DIR}"/${OPENCLAW_DIRNAME}-backup-*.tar.gz 2>/dev/null | wc -l | tr -d ' ')
-    if [ "${TOTAL}" -le "${KEEP}" ]; then
-      echo "Only ${TOTAL} backup(s) found, keeping all (threshold: ${KEEP})"
-      exit 0
-    fi
-    TO_DELETE=$((TOTAL - KEEP))
-    echo "Removing ${TO_DELETE} oldest backup(s), keeping newest ${KEEP}:"
-    ls -1t "${BACKUP_DIR}"/${OPENCLAW_DIRNAME}-backup-*.tar.gz | tail -n "${TO_DELETE}" | while read -r f; do
-      echo "  Deleting: $(basename "${f}")"
-      rm "${f}"
+    KEEP="${4:-5}"
+    for env in "${ENVS[@]}"; do
+      echo "=== ${env} ==="
+      TOTAL=$(ls -1 "${BACKUP_DIR}"/openclaw-${env}-backup-*.tar.gz 2>/dev/null | wc -l | tr -d ' ')
+      if [ "${TOTAL}" -le "${KEEP}" ]; then
+        echo "Only ${TOTAL} backup(s) found, keeping all (threshold: ${KEEP})"
+        continue
+      fi
+      TO_DELETE=$((TOTAL - KEEP))
+      echo "Removing ${TO_DELETE} oldest backup(s), keeping newest ${KEEP}:"
+      ls -1t "${BACKUP_DIR}"/openclaw-${env}-backup-*.tar.gz | tail -n "${TO_DELETE}" | while read -r f; do
+        echo "  Deleting: $(basename "${f}")"
+        rm "${f}"
+      done
     done
     ;;
   upload)
-    REMOTE="${3:-gdrive}"
-    REMOTE_PATH="${4:-backups/openclaw}"
-    LATEST=$(ls -1t "${BACKUP_DIR}"/${OPENCLAW_DIRNAME}-backup-*.tar.gz 2>/dev/null | head -1)
-    if [ -z "${LATEST}" ]; then
-      echo "ERROR: No backup files found in ${BACKUP_DIR}" >&2
-      exit 1
-    fi
-    echo "Uploading $(basename "${LATEST}") to ${REMOTE}:${REMOTE_PATH}/"
-    rclone copy "${LATEST}" "${REMOTE}:${REMOTE_PATH}/" --progress
-    echo "Upload complete."
+    REMOTE="${4:-gdrive}"
+    REMOTE_PATH="${5:-backups/openclaw}"
+    for env in "${ENVS[@]}"; do
+      LATEST=$(ls -1t "${BACKUP_DIR}"/openclaw-${env}-backup-*.tar.gz 2>/dev/null | head -1)
+      if [ -z "${LATEST}" ]; then
+        echo "SKIP: No ${env} backup files found in ${BACKUP_DIR}"
+        continue
+      fi
+      echo "Uploading $(basename "${LATEST}") to ${REMOTE}:${REMOTE_PATH}/"
+      rclone copy "${LATEST}" "${REMOTE}:${REMOTE_PATH}/" --progress
+      echo "Upload complete: ${env}"
+    done
     ;;
   *)
-    echo "Usage: backup.sh [backup_dir] [backup|list|clean|upload] [remote] [remote_path]"
+    echo "Usage: backup.sh [backup_dir] [backup|list|clean|upload] [personal|work|all] [keep_n|remote] [remote_path]"
     exit 1
     ;;
 esac

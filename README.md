@@ -20,7 +20,7 @@
 | [openclaw-cron](./openclaw/openclaw-cron/) | 管理 OpenClaw cron 排程任務 — 建立、編輯、除錯與疑難排解，含完整 CLI 指令速查與 JSON schema。 |
 | [openclaw-rebuild](./openclaw/openclaw-rebuild/) | 更新 OpenClaw 至最新穩定 release — 追蹤 release tag、重建 Docker image 並重啟 containers，含自動 cron 排程。 |
 | [reset-sessions](./openclaw/reset-sessions/) | 重置 OpenClaw agent 對話 session，可一次清除所有 agent 或指定單一 agent，適合清空上下文重新開始。 |
-| [backup](./openclaw/backup/) | 將 `~/.openclaw` 建立帶時戳的 tar.gz 備份，支援列出、清理舊備份，及透過 rclone 上傳至 Google Drive。 |
+| [backup](./openclaw/backup/) | 備份 `~/.openclaw-personal` 及 `~/.openclaw-work` 為帶時戳的 tar.gz，支援列出、清理舊備份，及透過 rclone 上傳至 Google Drive。 |
 | [memory-cleanup](./openclaw/memory-cleanup/) | 掃描並清理各 workspace agent 的空白/極簡 session memory 檔案，支援 scan、clean、report 子指令與 cron 排程。 |
 | [one-time-reminder-cron](./openclaw/one-time-reminder-cron/) | 透過編輯 cron registry 建立一次性提醒，支援建立/更新、停用與重新命名 cron job。 |
 | [cron-job-creator](./openclaw/cron-job-creator/) | 直接編輯 cron registry 管理排程任務 — 建立、更新、刪除、啟用/停用、重新命名與複製 cron job。 |
