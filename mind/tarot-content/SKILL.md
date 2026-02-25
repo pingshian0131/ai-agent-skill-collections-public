@@ -1,80 +1,43 @@
 ---
 name: tarot-content
-description: Generate tarot × astrology content for social media — weekly horoscope scripts, tarot spreads, video scripts, and cover art. Use when asked to "create tarot content", "weekly horoscope", "tarot reading script", "zodiac video", "astrology content calendar", "tarot spread design", or "horoscope video script". Supports 12-sign weekly readings, event-driven specials (retrogrades, eclipses, conjunctions), and multi-platform formatting (YouTube Shorts, TikTok, Instagram, blog).
+description: 個人塔羅占卜與星象解讀。支援每日一牌、三牌陣（挑戰/指引/祝福）、關係牌陣，結合即時天象資料提供深度解讀與反思引導。Use when asked to "塔羅占卜", "抽牌", "今日塔羅", "tarot reading", "抽一張牌", "三牌陣", or "幫我算一下".
 ---
 
-# Tarot Content Generator
+# 個人塔羅占卜
 
-Create professional tarot × astrology content for social media at scale.
+為使用者提供個人化的塔羅牌解讀，結合即時星象資料，作為自我反思與陪伴的工具。
 
-## Capabilities
+> Forked from [ClawHub: alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) (MIT License)，改為個人占卜用途。
 
-1. **Weekly 12-Sign Readings** — Scripted horoscope videos with tarot card pulls
-2. **Event-Driven Specials** — Content for major transits (retrogrades, eclipses, conjunctions)
-3. **Tarot Spreads** — Custom spread designs with interpretation frameworks
-4. **Video Scripts** — TTS-ready scripts with screen text cues
-5. **Cover Art** — Pillow-generated thumbnails optimized for mobile
-6. **Content Calendar** — Automated scheduling based on astrological events
+## 占卜流程
 
-## Quick Start
+### Step 1：了解問題
 
-### Weekly 12-Sign Reading
+先詢問使用者：
+- 想問什麼方向？（感情、事業、人際、自我成長、一般指引）
+- 有沒有具體的情境或困惑？
+- 如果使用者沒有特定問題，預設為「今日能量指引」
 
-```
-Generate a weekly tarot reading for all 12 signs.
-Date range: {start} to {end}
-Style: conversational, no jargon
-Format: video script with screen text cues
-```
+### Step 2：選擇牌陣
 
-The agent will:
-1. Pull real ephemeris data (planetary positions, aspects)
-2. Map transits to each sign's house system
-3. Pull tarot cards (Challenge / Guidance / Blessing spread)
-4. Write scripts in a natural, engaging voice
+根據問題推薦牌陣，或讓使用者選擇：
 
-### Event-Driven Special
+| 牌陣 | 張數 | 適用情境 |
+|------|------|---------|
+| 每日一牌 | 1 | 今日能量、快速指引 |
+| 挑戰 / 指引 / 祝福 | 3 | 通用問題、每週回顧 |
+| 關係牌陣 | 5 | 你 / 對方 / 關係現況 / 挑戰 / 建議 |
 
-```
-Create a special video about {transit/event}.
-Example: Saturn conjunct Neptune in Aries
-Include: what it means, historical context, 12-sign breakdown
-```
+### Step 3：抽牌與解讀
 
-## Content Framework
+1. 隨機抽取對應張數的塔羅牌（含正逆位）
+2. 查詢 `references/tarot-cards.md` 取得牌義關鍵字
+3. 結合使用者的問題情境，給出個人化解讀
+4. 如果 `USER.md` 中有使用者的星座資訊，將其納入解讀脈絡
 
-### The 3-Card Spread (Challenge / Guidance / Blessing)
+### Step 4：星象脈絡（選用）
 
-A proven framework for weekly readings:
-
-| Position | Meaning | Tone |
-|----------|---------|------|
-| Challenge | What to watch out for | Honest, not scary |
-| Guidance | What to focus on | Actionable advice |
-| Blessing | What's coming | Hopeful, encouraging |
-
-### Script Structure (per sign, 60-90 seconds)
-
-```
-1. Opening hook (5s) — "Hey {Sign}, this week is about..."
-2. Transit context (10s) — What planets are doing in their house
-3. Card 1: Challenge (15s) — The obstacle + real-life scenario
-4. Card 2: Guidance (15s) — Practical advice
-5. Card 3: Blessing (10s) — The reward / positive outcome
-6. CTA (5s) — "Follow for your sign's weekly reading"
-```
-
-### Writing Style Guidelines
-
-- **Say it like a friend, not a fortune teller** — "You might feel stuck" not "The cards reveal stagnation"
-- **Use scenarios** — "That coworker drama? Time to set boundaries" not "Conflict in relationships"
-- **Numbers in words** — "twenty twenty-six" not "2026" (TTS-friendly)
-- **Avoid fear-mongering** — Even tough cards get a constructive spin
-- **No clichés** — Ban "the universe has a plan", "trust the process", "everything happens for a reason"
-
-## Ephemeris Data
-
-### Using pyswisseph (recommended)
+使用 `scripts/ephemeris_helper.py` 查詢當前行星位置與相位，為解讀加上天象背景：
 
 ```python
 import swisseph as swe
@@ -95,93 +58,41 @@ def get_planet_position(planet_id, dt):
 #             JUPITER=5, SATURN=6, URANUS=7, NEPTUNE=8, PLUTO=9
 ```
 
-### Install
-```bash
-pip install pyswisseph
-```
+### Step 5：反思提問
 
-## Cover Art Generation
+每次解讀結尾，提供 1-2 個引導反思的問題，幫助使用者深入思考，例如：
+- 「這張牌提到的『放手』，在你目前的生活中，有什麼是你一直抓著不放的？」
+- 「如果這個建議是對的，你明天可以做的最小一步是什麼？」
 
-### Pillow-based covers (no AI text artifacts)
+## 三牌陣框架（挑戰 / 指引 / 祝福）
 
-```python
-from PIL import Image, ImageDraw, ImageFont
-import os
+| 位置 | 含義 | 語氣 |
+|------|------|------|
+| 挑戰 | 目前需要留意的 | 誠實但不嚇人 |
+| 指引 | 可以聚焦的方向 | 具體可行的建議 |
+| 祝福 | 正在到來的 | 鼓勵、溫暖 |
 
-def generate_cover(sign, hook_text, date_range, colors, output_path):
-    """Generate a 1080x1920 Shorts cover."""
-    W, H = 1080, 1920
-    img = Image.new('RGB', (W, H))
-    draw = ImageDraw.Draw(img)
+## 關係牌陣框架
 
-    # Gradient background
-    for y in range(H):
-        r = int(colors[0][0] + (colors[1][0]-colors[0][0]) * y/H)
-        g = int(colors[0][1] + (colors[1][1]-colors[0][1]) * y/H)
-        b = int(colors[0][2] + (colors[1][2]-colors[0][2]) * y/H)
-        draw.line([(0,y),(W,y)], fill=(r,g,b))
+| 位置 | 含義 |
+|------|------|
+| 1 — 你 | 你在這段關係中的狀態 |
+| 2 — 對方 | 對方目前的能量 |
+| 3 — 關係現況 | 兩人之間的動態 |
+| 4 — 挑戰 | 需要面對的課題 |
+| 5 — 建議 | 可以嘗試的方向 |
 
-    # Load fonts (adjust paths for your system)
-    font_lg = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 120)
-    font_md = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 56)
-    font_sm = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 40)
+## 解讀風格
 
-    # Sign name (large, centered)
-    draw.text((W//2, H*0.35), sign.upper(), font=font_lg, fill='white', anchor='mm')
+- **像朋友聊天** — 「你最近是不是覺得卡卡的？」而非「牌面顯示停滯之象」
+- **用生活場景** — 「那個一直想開口但沒說的事？也許是時候了」
+- **不恐嚇** — 即使抽到塔、死神、惡魔，都給建設性的解讀
+- **不老套** — 禁止「宇宙自有安排」、「一切都是最好的安排」、「相信過程」
+- **尊重自主** — 解讀是參考，選擇永遠在使用者手上
 
-    # Date range
-    draw.text((W//2, H*0.48), date_range, font=font_md, fill=(255,215,0), anchor='mm')
+## 敏感內容守則
 
-    # Hook text
-    draw.text((W//2, H*0.62), hook_text, font=font_md, fill='white', anchor='mm')
-
-    # Brand
-    draw.text((W//2, H*0.78), "WEEKLY TAROT", font=font_sm, fill=(200,200,200), anchor='mm')
-
-    img.save(output_path, quality=95)
-
-# Color schemes per sign
-SIGN_COLORS = {
-    'aries':       [(220,50,30),  (120,20,60)],
-    'taurus':      [(30,120,50),  (15,60,30)],
-    'gemini':      [(230,200,40), (180,120,20)],
-    'cancer':      [(150,180,220),(60,80,140)],
-    'leo':         [(240,170,30), (200,100,10)],
-    'virgo':       [(80,140,80),  (40,80,50)],
-    'libra':       [(200,160,200),(120,80,150)],
-    'scorpio':     [(140,20,40),  (60,10,40)],
-    'sagittarius': [(160,80,180), (100,40,120)],
-    'capricorn':   [(80,60,50),   (30,25,20)],
-    'aquarius':    [(40,100,220), (20,50,140)],
-    'pisces':      [(160,130,200),(80,60,130)],
-}
-```
-
-### Cover Rules
-- ⚠️ **Never use Unicode zodiac symbols** (♈♉ etc.) — most fonts render them as ☒
-- Use English sign names in large text instead
-- Text must be readable at thumbnail size (phone screen)
-- Keep important elements away from bottom 15% (YouTube UI overlay)
-
-## Content Calendar
-
-### Weekly Cycle
-| Day | Content | Platform |
-|-----|---------|----------|
-| Mon | 12 sign readings (video) | YouTube Shorts, TikTok |
-| Wed | Mid-week energy check | Instagram Reel |
-| Fri | Weekend tarot pull | TikTok, Shorts |
-
-### Event-Driven (auto-detect from ephemeris)
-- Mercury Retrograde → "Survival guide" series
-- Full/New Moon → Moon ritual + tarot spread
-- Eclipse season → "Eclipse portal" specials
-- Major conjunctions → Deep-dive explainer + 12-sign impact
-
-## Sensitive Content Notes
-
-Platform content policies vary. Avoid:
-- Health/medical claims ("this card says you'll recover")
-- Financial advice ("invest now, Jupiter says so")
-- Fear-inducing predictions ("danger ahead", "death card means...")
-- Always frame readings as reflection tools, not predictions
+- 不做醫療診斷或健康預測（「這張牌說你會康復」）
+- 不做具體財務建議（「現在投資，木星說的」）
+- 不做恐嚇式預言（「前方有危險」、「死神牌代表...」）
+- 塔羅是反思工具，不是預測未來的水晶球

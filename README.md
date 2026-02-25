@@ -40,7 +40,7 @@
 
 | Skill | 說明 | 來源 |
 |-------|------|------|
-| [tarot-content](./mind/tarot-content/) | 產生塔羅牌 × 星座社群媒體內容 — 每週 12 星座運勢腳本、塔羅牌陣、影片腳本與封面圖。 | [ClawHub: alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+| [tarot-content](./mind/tarot-content/) | 個人塔羅占卜與星象解讀 — 每日一牌、三牌陣、關係牌陣，結合即時天象。Fork 自 [alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content)，改為個人占卜用途。 | Fork from ClawHub |
 | [mingli](./mind/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 | [ClawHub: hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
 | [meihua-yishu](./mind/meihua-yishu/) | 梅花易數（Plum Blossom I Ching）專業占卜系統 — 時間起卦、數字起卦、測字，含爻辭解讀與策略建議。 | [GitHub: muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
 
