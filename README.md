@@ -12,6 +12,7 @@
 | [skill-creator](./dev-tools/skill-creator/) | 建立或更新 AgentSkill，提供 skill 設計、結構化、打包的完整流程指南與腳本。 |
 | [publish-skill](./dev-tools/publish-skill/) | 將 skill 發佈到 GitHub skill collection repos（private + public），含機敏資料掃描、路徑正規化與清除。 |
 | [doc-commit-push](./dev-tools/doc-commit-push/) | 分析 git repo 的近期變更，自動更新 CLAUDE.md 與 README.md 後 commit & push。 |
+| [install-skill](./dev-tools/install-skill/) | 從 GitHub 或 ClawHub URL 一鍵安裝第三方 AgentSkill，含 7 大類別安全掃描與風險閘門。 |
 
 ### OpenClaw — 平台管理
 
