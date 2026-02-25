@@ -35,6 +35,12 @@
 | [twilio-voice](./communication/twilio-voice/) | 透過 Twilio Voice API 撥打電話，支援 zh-TW 語音合成（Google TTS MP3），可用於語音通知與提醒。 |
 | [send-imessage](./communication/send-imessage/) | 透過 BlueBubbles REST API 發送 iMessage，Docker agent 可透過 HTTP 呼叫，無需 jq。 |
 
+### Mind — 身心靈 / 內容創作
+
+| Skill | 說明 | 來源 |
+|-------|------|------|
+| [tarot-content](./mind/tarot-content/) | 產生塔羅牌 × 星座社群媒體內容 — 每週 12 星座運勢腳本、塔羅牌陣、影片腳本與封面圖。 | [ClawHub: alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+
 ### Knowledge — 知識整理
 
 | Skill | 說明 |
@@ -47,11 +53,22 @@
 
 ## 新增 Skill
 
-1. 選擇適當的分類目錄（`dev-tools/`、`openclaw/`、`communication/`、`knowledge/`），或建立新分類。
+1. 選擇適當的分類目錄（`dev-tools/`、`openclaw/`、`communication/`、`knowledge/`、`mind/`），或建立新分類。
 2. 在分類目錄中建立以 Skill 命名的子目錄。
 3. 在目錄中新增 `SKILL.md`，遵循 [Claude Code Skill 格式](https://docs.anthropic.com/en/docs/claude-code)。
 4. 更新本 README，將新 Skill 加入對應分類表格。
 
+## 第三方 Skills (來自 ClawHub)
+
+部分 skills 來自 [ClawHub](https://clawhub.ai) 開源社群，以 `_meta.json` 記錄原始出處。
+
+| Skill | 原始作者 | 來源連結 |
+|-------|---------|---------|
+| tarot-content | alexyuui | [clawhub.ai/alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+
 ## License
 
-MIT
+本 repo 自有 skills 以 MIT License 發佈。
+
+第三方 skills 遵循其原始授權條款：
+- ClawHub skills（`openclaw/skills` repo）：[MIT License](https://github.com/openclaw/skills/blob/main/LICENSE)
