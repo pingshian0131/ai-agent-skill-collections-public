@@ -48,6 +48,7 @@
 |-------|------|
 | [ddd-summary](./knowledge/ddd-summary/) | 為《Learning Domain-Driven Design》指定章節製作繁中摘要，分成 5 份 .md 檔並推送到 Obsidian vault。 |
 | [mingli](./knowledge/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 |
+| [meihua-yishu](./knowledge/meihua-yishu/) | 梅花易數（Plum Blossom I Ching）專業占卜系統 — 時間起卦、數字起卦、測字，含爻辭解讀與策略建議。 |
 
 ## 使用方式
 
@@ -60,14 +61,15 @@
 3. 在目錄中新增 `SKILL.md`，遵循 [Claude Code Skill 格式](https://docs.anthropic.com/en/docs/claude-code)。
 4. 更新本 README，將新 Skill 加入對應分類表格。
 
-## 第三方 Skills (來自 ClawHub)
+## 第三方 Skills
 
-部分 skills 來自 [ClawHub](https://clawhub.ai) 開源社群，以 `_meta.json` 記錄原始出處。
+部分 skills 來自外部開源社群，以 `_meta.json` 或 SKILL.md frontmatter 記錄原始出處。
 
-| Skill | 原始作者 | 來源連結 |
-|-------|---------|---------|
-| tarot-content | alexyuui | [clawhub.ai/alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
-| mingli | hiehoo | [github.com/openclaw/skills/tree/main/skills/hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
+| Skill | 原始作者 | 來源 | 來源連結 |
+|-------|---------|------|---------|
+| tarot-content | alexyuui | ClawHub | [clawhub.ai/alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
+| mingli | hiehoo | ClawHub | [github.com/openclaw/skills/tree/main/skills/hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
+| meihua-yishu | muyen | GitHub | [github.com/muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
 
 ## License
 
@@ -75,3 +77,4 @@
 
 第三方 skills 遵循其原始授權條款：
 - ClawHub skills（`openclaw/skills` repo）：[MIT License](https://github.com/openclaw/skills/blob/main/LICENSE)
+- meihua-yishu：[CC BY-NC-SA 4.0](https://github.com/muyen/meihua-yishu/blob/main/LICENSE)
