@@ -43,6 +43,7 @@
 | [tarot-content](./mind/tarot-content/) | 個人塔羅占卜與星象解讀 — 每日一牌、三牌陣、關係牌陣，結合即時天象。Fork 自 [alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content)，改為個人占卜用途。 | Fork from ClawHub |
 | [mingli](./mind/mingli/) | 多系統命理技能 — 西洋星盤（Kerykeion）、八字四柱、數字學、易經，支援每日 Telegram 運勢推送。 | [ClawHub: hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
 | [meihua-yishu](./mind/meihua-yishu/) | 梅花易數（Plum Blossom I Ching）專業占卜系統 — 時間起卦、數字起卦、測字，含爻辭解讀與策略建議。 | [GitHub: muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
+| [transit-chart](./mind/transit-chart/) | 行星 Transit 盤產生器 — 用 Kerykeion (Swiss Ephemeris) 本地計算當天行星位置，支援 Transit+Natal 雙輪盤 PNG 圖片輸出。 | 自製 |
 
 ### Knowledge — 知識整理
 
