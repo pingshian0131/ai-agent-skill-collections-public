@@ -50,6 +50,7 @@
 | Skill | 說明 |
 |-------|------|
 | [ddd-summary](./knowledge/ddd-summary/) | 為《Learning Domain-Driven Design》指定章節製作繁中摘要，分成 5 份 .md 檔並推送到 Obsidian vault。 |
+| [summarize](./knowledge/summarize/) | 使用 summarize CLI 一鍵摘要 URL、本地檔案（PDF、圖片、音視頻）及 YouTube 連結。 |
 
 ## 使用方式
 
@@ -71,6 +72,7 @@
 | tarot-content | alexyuui | ClawHub | [clawhub.ai/alexyuui/tarot-content](https://clawhub.ai/alexyuui/tarot-content) |
 | mingli | hiehoo | ClawHub | [github.com/openclaw/skills/tree/main/skills/hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
 | meihua-yishu | muyen | GitHub | [github.com/muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
+| summarize | steipete | GitHub | [github.com/openclaw/skills/tree/main/skills/steipete/summarize](https://github.com/openclaw/skills/tree/main/skills/steipete/summarize) |
 
 ## License
 
