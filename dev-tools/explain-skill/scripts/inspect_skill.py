@@ -3,10 +3,12 @@
 
 Usage:
     inspect_skill.py <skill-name>
-    inspect_skill.py --list
-    inspect_skill.py --all
+    inspect_skill.py <skill-name> --path /custom/skills/dir
+    inspect_skill.py /absolute/path/to/skill-dir
+    inspect_skill.py --list [--path /custom/skills/dir]
+    inspect_skill.py --all [--path /custom/skills/dir]
 
-Scans ~/.claude/skills/<skill-name>/ and reports:
+Scans skill directories and reports:
 - Frontmatter (name, description)
 - File tree with sizes
 - Scripts inventory (highlights executable code)
@@ -18,7 +20,7 @@ import os
 import re
 from pathlib import Path
 
-SKILLS_DIR = Path.home() / ".claude" / "skills"
+DEFAULT_SKILLS_DIR = Path.home() / ".claude" / "skills"
 
 
 def parse_frontmatter(text: str) -> dict:
@@ -26,10 +28,33 @@ def parse_frontmatter(text: str) -> dict:
     if not m:
         return {}
     fm = {}
+    current_key = None
+    current_val_lines = []
+
+    def flush():
+        if current_key is not None:
+            val = " ".join(current_val_lines).strip().strip('"').strip("'")
+            # Strip YAML multiline indicators (>, |)
+            if val in (">", "|", ">-", "|-"):
+                val = ""
+            fm[current_key] = val
+
     for line in m.group(1).splitlines():
-        if ":" in line:
+        # Top-level key: non-indented line with colon
+        if not line.startswith(" ") and not line.startswith("\t") and ":" in line:
+            flush()
             key, _, val = line.partition(":")
-            fm[key.strip()] = val.strip().strip('"').strip("'")
+            current_key = key.strip()
+            val = val.strip()
+            # YAML multiline block scalar — value follows on next lines
+            if val in (">", "|", ">-", "|-"):
+                current_val_lines = []
+            else:
+                current_val_lines = [val] if val else []
+        elif current_key is not None:
+            # Continuation line (indented)
+            current_val_lines.append(line.strip())
+    flush()
     return fm
 
 
@@ -93,12 +118,18 @@ def inspect_scripts(skill_dir: Path) -> list[str]:
     return notes
 
 
-def inspect_skill(name: str) -> None:
-    skill_dir = SKILLS_DIR / name
+def inspect_skill(name_or_path: str, skills_dir: Path = DEFAULT_SKILLS_DIR) -> None:
+    # Support absolute/relative path to a skill directory
+    candidate = Path(name_or_path)
+    if candidate.is_absolute() or "/" in name_or_path:
+        skill_dir = candidate.resolve()
+    else:
+        skill_dir = skills_dir / name_or_path
     if not skill_dir.is_dir():
-        print(f"Error: skill '{name}' not found at {skill_dir}")
+        print(f"Error: skill not found at {skill_dir}")
         sys.exit(1)
 
+    name = skill_dir.name
     skill_md = skill_dir / "SKILL.md"
     if not skill_md.is_file():
         print(f"Error: {skill_md} not found")
@@ -159,17 +190,17 @@ def inspect_skill(name: str) -> None:
         print()
 
 
-def list_skills() -> None:
-    if not SKILLS_DIR.is_dir():
-        print(f"No skills directory found at {SKILLS_DIR}")
+def list_skills(skills_dir: Path = DEFAULT_SKILLS_DIR) -> None:
+    if not skills_dir.is_dir():
+        print(f"No skills directory found at {skills_dir}")
         sys.exit(1)
-    skills = sorted(d.name for d in SKILLS_DIR.iterdir() if d.is_dir() and (d / "SKILL.md").is_file())
+    skills = sorted(d.name for d in skills_dir.iterdir() if d.is_dir() and (d / "SKILL.md").is_file())
     if not skills:
         print("No skills installed.")
         return
-    print(f"Installed skills ({len(skills)}):\n")
+    print(f"Installed skills ({len(skills)}) in {skills_dir}:\n")
     for name in skills:
-        skill_md = SKILLS_DIR / name / "SKILL.md"
+        skill_md = skills_dir / name / "SKILL.md"
         fm = parse_frontmatter(skill_md.read_text())
         desc = fm.get("description", "(no description)")
         # Truncate long descriptions
@@ -179,26 +210,50 @@ def list_skills() -> None:
         print(f"    {desc}\n")
 
 
-def inspect_all() -> None:
-    if not SKILLS_DIR.is_dir():
-        print(f"No skills directory found at {SKILLS_DIR}")
+def inspect_all(skills_dir: Path = DEFAULT_SKILLS_DIR) -> None:
+    if not skills_dir.is_dir():
+        print(f"No skills directory found at {skills_dir}")
         sys.exit(1)
-    skills = sorted(d.name for d in SKILLS_DIR.iterdir() if d.is_dir() and (d / "SKILL.md").is_file())
+    skills = sorted(d.name for d in skills_dir.iterdir() if d.is_dir() and (d / "SKILL.md").is_file())
     for i, name in enumerate(skills):
         if i > 0:
             print("\n" + "=" * 60 + "\n")
-        inspect_skill(name)
+        inspect_skill(name, skills_dir)
+
+
+def parse_args(argv: list[str]) -> tuple[str, Path]:
+    """Parse command line args. Returns (action, skills_dir).
+    action: skill name, '--list', or '--all'
+    """
+    skills_dir = DEFAULT_SKILLS_DIR
+    action = None
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--path" and i + 1 < len(argv):
+            skills_dir = Path(argv[i + 1]).resolve()
+            i += 2
+        elif action is None:
+            action = argv[i]
+            i += 1
+        else:
+            i += 1
+    return action, skills_dir
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: inspect_skill.py <skill-name> | --list | --all")
+        print("Usage: inspect_skill.py <skill-name|path> [--path /skills/dir]")
+        print("       inspect_skill.py --list [--path /skills/dir]")
+        print("       inspect_skill.py --all [--path /skills/dir]")
         sys.exit(1)
 
-    arg = sys.argv[1]
-    if arg == "--list":
-        list_skills()
-    elif arg == "--all":
-        inspect_all()
+    action, skills_dir = parse_args(sys.argv[1:])
+    if action == "--list":
+        list_skills(skills_dir)
+    elif action == "--all":
+        inspect_all(skills_dir)
+    elif action:
+        inspect_skill(action, skills_dir)
     else:
-        inspect_skill(arg)
+        print("Error: no skill name or action specified")
+        sys.exit(1)
