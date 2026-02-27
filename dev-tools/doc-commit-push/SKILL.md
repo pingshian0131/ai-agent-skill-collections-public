@@ -42,7 +42,21 @@ Rules:
 - Keep formatting consistent with the existing file.
 - Only update sections affected by code changes.
 
-### Step 4: Commit & push
+### Step 4: Scan for sensitive data
+
+Before committing, scan both files for:
+- **Absolute paths** — `/Users/<username>/...` or any user-specific path
+- **Phone numbers** — real personal or service numbers (e.g. `+886...`)
+- **API keys / tokens** — any string resembling a secret (`sk-...`, bearer tokens)
+- **Email addresses** — personal emails
+- **Hardcoded credentials** — passwords, auth tokens
+
+If found, sanitize before proceeding:
+- Absolute paths → use relative paths or generic placeholders (e.g. `~/...`)
+- Secrets → `YOUR_<NAME>_HERE`
+- Phone numbers → remove or replace with placeholder
+
+### Step 5: Commit & push
 
 1. Stage only the doc files: `git add CLAUDE.md README.md`
 2. Commit with a descriptive message:
@@ -50,6 +64,18 @@ Rules:
    docs: 更新 CLAUDE.md / README.md — <簡述變更>
    ```
 3. Push to the current branch.
+
+### Step 6: Push to public repo (optional)
+
+Ask the user: **「是否也要推到 public repo？」**
+
+If yes:
+1. Check available remotes with `git remote -v`.
+2. Confirm the sanitization in Step 4 is complete — public repo must have zero sensitive data.
+3. Push to the public remote:
+   ```bash
+   git push <public-remote> <branch>
+   ```
 
 ## Notes
 
