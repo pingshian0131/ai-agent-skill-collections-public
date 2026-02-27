@@ -14,6 +14,7 @@
 | [doc-commit-push](./dev-tools/doc-commit-push/) | 分析 git repo 的近期變更，自動更新 CLAUDE.md 與 README.md 後 commit & push。 |
 | [install-skill](./dev-tools/install-skill/) | 從 GitHub 或 ClawHub URL 一鍵安裝第三方 AgentSkill，含 7 大類別安全掃描與風險閘門。 |
 | [self-improving-agent](./dev-tools/self-improving-agent/) | 記錄學習、錯誤與修正以實現持續改進，支援 OpenClaw hook 自動觸發，學習可晉升至專案 memory。 |
+| [explain-skill](./dev-tools/explain-skill/) | 解釋已安裝 skill 的功能、觸發條件與安全性，含腳本自動偵測第三方 skill 的風險模式。 |
 
 ### OpenClaw — 平台管理
 
