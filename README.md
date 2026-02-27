@@ -13,6 +13,7 @@
 | [publish-skill](./dev-tools/publish-skill/) | 將 skill 發佈到 GitHub skill collection repos（private + public），含機敏資料掃描、路徑正規化與清除。 |
 | [doc-commit-push](./dev-tools/doc-commit-push/) | 分析 git repo 的近期變更，自動更新 CLAUDE.md 與 README.md 後 commit & push。 |
 | [install-skill](./dev-tools/install-skill/) | 從 GitHub 或 ClawHub URL 一鍵安裝第三方 AgentSkill，含 7 大類別安全掃描與風險閘門。 |
+| [self-improving-agent](./dev-tools/self-improving-agent/) | 記錄學習、錯誤與修正以實現持續改進，支援 OpenClaw hook 自動觸發，學習可晉升至專案 memory。 |
 
 ### OpenClaw — 平台管理
 
@@ -73,6 +74,7 @@
 | mingli | hiehoo | ClawHub | [github.com/openclaw/skills/tree/main/skills/hiehoo/mingli](https://github.com/openclaw/skills/tree/main/skills/hiehoo/mingli) |
 | meihua-yishu | muyen | GitHub | [github.com/muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
 | summarize | steipete | GitHub | [github.com/openclaw/skills/tree/main/skills/steipete/summarize](https://github.com/openclaw/skills/tree/main/skills/steipete/summarize) |
+| self-improving-agent | pskoett | GitHub | [github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent](https://github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent) |
 
 ## License
 
