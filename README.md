@@ -52,6 +52,7 @@
 |-------|------|
 | [ddd-summary](./knowledge/ddd-summary/) | 為《Learning Domain-Driven Design》指定章節製作繁中摘要，分成 5 份 .md 檔並推送到 Obsidian vault。 |
 | [summarize](./knowledge/summarize/) | 使用 summarize CLI 一鍵摘要 URL、本地檔案（PDF、圖片、音視頻）及 YouTube 連結。 |
+| [ontology](./knowledge/ontology/) | Typed knowledge graph 結構化 agent 記憶 — 支援 entity CRUD、關聯查詢、schema 驗證與跨 skill 狀態共享。 |
 
 ## 使用方式
 
@@ -75,6 +76,7 @@
 | meihua-yishu | muyen | GitHub | [github.com/muyen/meihua-yishu](https://github.com/muyen/meihua-yishu) |
 | summarize | steipete | GitHub | [github.com/openclaw/skills/tree/main/skills/steipete/summarize](https://github.com/openclaw/skills/tree/main/skills/steipete/summarize) |
 | self-improving-agent | pskoett | GitHub | [github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent](https://github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent) |
+| ontology | oswalpalash | ClawHub | [github.com/openclaw/skills/tree/main/skills/oswalpalash/ontology](https://github.com/openclaw/skills/tree/main/skills/oswalpalash/ontology) |
 
 ## License
 
