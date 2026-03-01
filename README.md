@@ -15,6 +15,7 @@
 | [install-skill](./dev-tools/install-skill/) | 從 GitHub 或 ClawHub URL 一鍵安裝第三方 AgentSkill，含 7 大類別安全掃描與風險閘門。 |
 | [self-improving-agent](./dev-tools/self-improving-agent/) | 記錄學習、錯誤與修正以實現持續改進，支援 OpenClaw hook 自動觸發，學習可晉升至專案 memory。 |
 | [explain-skill](./dev-tools/explain-skill/) | 解釋已安裝 skill 的功能、觸發條件與安全性，含腳本自動偵測第三方 skill 的風險模式。 |
+| [agent-browser-core](./dev-tools/agent-browser-core/) | agent-browser CLI（Rust + Node.js fallback）的操作手冊，提供 AI-friendly 網頁自動化的 snapshot、refs 與結構化指令。 |
 
 ### OpenClaw — 平台管理
 
@@ -78,6 +79,7 @@
 | summarize | steipete | GitHub | [github.com/openclaw/skills/tree/main/skills/steipete/summarize](https://github.com/openclaw/skills/tree/main/skills/steipete/summarize) |
 | self-improving-agent | pskoett | GitHub | [github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent](https://github.com/openclaw/skills/tree/main/skills/pskoett/self-improving-agent) |
 | ontology | oswalpalash | ClawHub | [github.com/openclaw/skills/tree/main/skills/oswalpalash/ontology](https://github.com/openclaw/skills/tree/main/skills/oswalpalash/ontology) |
+| agent-browser-core | codedao12 | ClawHub | [github.com/openclaw/skills/tree/main/skills/codedao12/agent-browser-core](https://github.com/openclaw/skills/tree/main/skills/codedao12/agent-browser-core) |
 
 ## License
 
